@@ -1,0 +1,5 @@
+sm: → Untuk layar kecil, minimal 640px.
+md: → Untuk layar sedang, minimal 768px.
+lg: → Untuk layar besar, minimal 1024px.
+xl: → Untuk layar ekstra besar, minimal 1280px.
+2xl: → Untuk layar sangat besar, minimal 1536px.
