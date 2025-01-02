@@ -1,33 +1,59 @@
-// Pilih elemen tempat teks akan ditampilkan
-const textElement = document.getElementById('text-writer');
+// Navbar menjadi fixed saat di-scroll
+window.onscroll = function () {
+    const header = document.querySelector('header');
+    const fixedNav = header.offsetTop;
 
-// Teks yang akan ditampilkan secara berurutan
+    if (window.pageYOffset > fixedNav) {
+        header.classList.add('navbar-fixed');
+    } else {
+        header.classList.remove('navbar-fixed');
+    }
+};
+
+  // Hamburger menu toggle
+    const hamburger = document.querySelector('#hamburger');
+    const navMenu = document.querySelector('#nav-menu');
+
+    hamburger.addEventListener('click', function () {
+        hamburger.classList.toggle('hamburger-active');
+        navMenu.classList.toggle('hidden');
+});
+
+
+window.addEventListener('resize', function () {
+    if (window.innerWidth >= 1024) {
+        hamburger.classList.remove('hamburger-active');
+        navMenu.classList.add('hidden');
+    }
+});
+
+
+const textElement = document.getElementById('text-writer');
 const textArray = [
     "Welcome to My Page",
     "Let’s Talk With Me",
     "Let’s Connect and Collaborate"
 ];
 
-// Variabel untuk melacak teks saat ini dan indeks karakter
+
 let textIndex = 0;
 let charIndex = 0;
 
-// Kecepatan pengetikan dan jeda antar teks
-const typingSpeed = 100; // Kecepatan mengetik (ms per karakter)
-const delayBetweenTexts = 1000; // Jeda antar teks (ms)
+const typingSpeed = 100; 
+const delayBetweenTexts = 1000;
 
 function typeText() {
     if (charIndex < textArray[textIndex].length) {
-    // Tambahkan karakter berikutnya ke elemen teks
+
     textElement.textContent = textArray[textIndex].substring(0, charIndex + 1);
     charIndex++;
     setTimeout(typeText, typingSpeed);
 } else {
-    // Tunggu sebelum memulai teks berikutnya
+
     setTimeout(() => {
-      textElement.textContent = ""; // Hapus teks sebelumnya
+    textElement.textContent = ""; 
         charIndex = 0;
-      textIndex = (textIndex + 1) % textArray.length; // Pindah ke teks berikutnya
+    textIndex = (textIndex + 1) % textArray.length; 
         typeText();
     }, delayBetweenTexts);
 }
@@ -44,46 +70,46 @@ document.addEventListener('DOMContentLoaded', () => {
 // Data Contact
 let dataContact = [];
 
-const getData = async () => {
-    try {
-        const response = await fetch("https://backend-three-tau-34.vercel.app/api/contact", {
-            method: "GET",
-        });
+// const getData = async () => {
+//     try {
+//         const response = await fetch("https://backend-three-tau-34.vercel.app/api/contact", {
+//             method: "GET",
+//         });
 
-        if (!response.ok) {
-            throw new Error(`Failed to fetch data: ${response.statusText}`);
-        }
+//         if (!response.ok) {
+//             throw new Error(`Failed to fetch data: ${response.statusText}`);
+//         }
 
-        const data = await response.json();
+//         const data = await response.json();
 
-        dataContact = [...data];
-        console.log("Fetched Data:", dataContact);
-        renderData();
-    } catch (err) {
-        console.error("Unexpected error while fetching data:", err);
-    }
-};
+//         dataContact = [...data];
+//         console.log("Fetched Data:", dataContact);
+//         renderData();
+//     } catch (err) {
+//         console.error("Unexpected error while fetching data:", err);
+//     }
+// };
 
-const renderData = () => {
-    const bodyData = document.getElementById("bodyData");
+// const renderData = () => {
+//     const bodyData = document.getElementById("bodyData");
 
-    if (bodyData) {
-        const body = dataContact
-            .map(
-                (contact) =>
-                    `
-                <h2 class="bg-primary">${contact.nama}</h2>
-            `
-            )
-            .join("");
+//     if (bodyData) {
+//         const body = dataContact
+//             .map(
+//                 (contact) =>
+//                     `
+//                 <h2 class="bg-primary">${contact.nama}</h2>
+//             `
+//             )
+//             .join("");
 
-        bodyData.innerHTML = body;
-    } else {
-        console.error("Body data container (bodyData) not found");
-    }
-};
+//         bodyData.innerHTML = body;
+//     } else {
+//         console.error("Body data container (bodyData) not found");
+//     }
+// };
 
-getData();
+// getData();
 
 // Form Submission
 const submitBtn = document.getElementById('submitBtn');
